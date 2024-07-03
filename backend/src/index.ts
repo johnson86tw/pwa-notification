@@ -4,6 +4,7 @@ import express from 'express'
 import { createServer } from 'http'
 import cors from 'cors'
 import { CLIENT_URL, logger } from './config'
+import webpush from 'web-push'
 
 async function main() {
 	logger.info('Starting server...')
@@ -16,6 +17,12 @@ async function main() {
 		cors({
 			origin: CLIENT_URL,
 		}),
+	)
+
+	webpush.setVapidDetails(
+		'mailto:chnejohnson@gmail.com',
+		process.env.PUBLIC_VAPID_KEY!,
+		process.env.PRIVATE_VAPID_KEY!,
 	)
 
 	const httpServer = createServer(app)
