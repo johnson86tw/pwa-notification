@@ -8,6 +8,7 @@
 	"scripts": {
 		"build": "pnpm -F frontend build",
 		"dev": "pnpm -F frontend dev",
+		"preview": "pnpm -F frontend preview",
 		"start": "pnpm -F backend start",
 		"format": "prettier --write \"**/*.{vue,ts,js,json}\"",
 		"version": "lerna version --no-private",

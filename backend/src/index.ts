@@ -3,7 +3,7 @@ import fs from 'fs'
 import express from 'express'
 import { createServer } from 'http'
 import cors from 'cors'
-import { CLIENT_URL, logger } from './config'
+import { logger } from './config'
 import webpush from 'web-push'
 
 async function main() {
@@ -13,11 +13,7 @@ async function main() {
 	const port = process.env.PORT ?? 8000
 
 	app.use(express.json())
-	app.use(
-		cors({
-			origin: CLIENT_URL,
-		}),
-	)
+	app.use(cors())
 
 	webpush.setVapidDetails(
 		'mailto:chnejohnson@gmail.com',

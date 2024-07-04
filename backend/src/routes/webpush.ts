@@ -5,6 +5,11 @@ import { logger } from '../config'
 const subDatabase: PushSubscription[] = []
 
 export default (app: Express) => {
+	app.post('/webpush/test-post', (req, res) => {
+		logger.info('Test success!')
+		res.json({ status: 'Success', message: 'Test success!' })
+	})
+
 	app.post('/save-subscription', (req, res) => {
 		try {
 			subDatabase.push(req.body)
@@ -21,7 +26,11 @@ export default (app: Express) => {
 			if (subDatabase.length === 0) {
 				throw new Error('No subscription found!')
 			}
-			webpush.sendNotification(subDatabase[0], 'Hello, Web Push Notification!')
+
+			for (let i = 0; i < subDatabase.length; i++) {
+				webpush.sendNotification(subDatabase[i], 'Hello, Web Push Notification!')
+			}
+
 			logger.info('Notification sent!')
 			res.json({ status: 'Success', message: 'Notification sent!' })
 		} catch (e) {
